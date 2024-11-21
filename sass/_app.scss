@@ -1,0 +1,73 @@
+@charset 'UTF-8';
+
+@use 'mixin' as mix;
+@use 'variable' as var;
+
+.header {
+  background-color: var.$navy;
+  padding: 20px;
+  height: 100px;
+  width: 400px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  box-sizing: border-box;
+
+  &__box {
+    background-color: var.$white;
+    padding: 10px;
+    display: flex;
+
+    @each $name in var.$classNames {
+      $index_key: index(var.$classNames, $name);
+
+      &__#{$name} {
+        @include mix.header__box(nth(var.$buttonColor, $index_key));
+        margin-left: 10px;
+
+        &:nth-child(1) {
+          margin-left: 0;
+        }
+      }
+    }
+  }
+}
+
+.main {
+  display: flex;
+
+  &__sidebar {
+    height: 250px;
+    width: 150px;
+    background-color: var.$green;
+  }
+
+  &__box {
+    height: 250px;
+    width: 250px;
+    padding: 40px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    background-color: var.$red;
+
+    @each $name in var.$classNames {
+      $index_key: index(var.$classNames, $name);
+
+      &__#{$name} {
+        @include mix.main__box(nth(var.$buttonColor, $index_key));
+        margin-top: 10px;
+
+        &:nth-child(1) {
+          margin-top: 0;
+        }
+      }
+    }
+  }
+}
+
+.footer {
+  background-color: var.$brown;
+  height: 100px;
+  width: 400px;
+}
